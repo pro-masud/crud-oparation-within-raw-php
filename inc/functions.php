@@ -11,9 +11,10 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
  * create a students data for seed name
  * */ 
 
- function seed($fileName){
+ function seed(){
     $Data = [
         [
+            "id"    => 1,
             "fname" => "Masud",
             "lname" => "Rana",
             "age"   => 18,
@@ -21,6 +22,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
             "roll"  => 001,
         ],
         [
+            "id"    => 2,
             "fname" => "Al Amin",
             "lname" => "Islam",
             "age"   => 25,
@@ -28,6 +30,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
             "roll"  => 002,
         ],
         [
+            "id"    => 3,
             "fname" => "Fatima",
             "lname" => "Khatun",
             "age"   => 18,
@@ -35,6 +38,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
             "roll"  => 003,
         ],
         [
+            "id"    => 4,
             "fname" => "Parvej",
             "lname" => "Islam",
             "age"   => 18,
@@ -42,6 +46,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
             "roll"  => 004,
         ],
         [
+            "id"    => 5,
             "fname" => "Monuar",
             "lname" => "Rahman",
             "age"   => 18,
@@ -52,5 +57,43 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
 
     $serializeData = serialize($Data);
 
-    file_put_contents($fileName, $serializeData, LOCK_EX);
+    file_put_contents(DB, $serializeData, LOCK_EX);
+ }
+
+
+/**
+ * create a all student report here now
+ * 
+ * */
+
+ function studentReports(){
+    $serializeData = file_get_contents(DB);
+    $students = unserialize($serializeData);
+
+    ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Class</th>
+                    <th>Roll</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($students as $student): ?>
+                    <tr>
+                        <td><?php echo $student['id']; ?></td>
+                        <td><?php echo $student['fname'] . $student['lname']; ?></td>
+                        <td><?php echo $student['age']; ?></td>
+                        <td><?php echo $student['class']; ?></td>
+                        <td><?php echo $student['roll']; ?></td>
+                        <td><a style="color: green;" href="">Edite</a> | <a style="color: red;" href="">Delete</a></td>
+                    </tr>
+                    <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php 
  }

@@ -6,7 +6,7 @@ require "./inc/functions.php";
 $info = '';
 $task = $_GET['task'] ?? 'report';
 if("seed" == $task){
-    seed(DB);
+    seed();
     $info = "seeding is complete Now";
 }
 ?>
@@ -39,6 +39,13 @@ if("seed" == $task){
                     </div>
                 </div>
             </div>
+            <?php if("report" == $task): ?>
+            <div class="row">
+                <div class="column column-70 column-offset-30">
+                    <?php studentReports(); ?>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
     
