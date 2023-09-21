@@ -24,12 +24,19 @@ if("seed" == $task){
     $age = $_POST['age'];
     $class = $_POST['class'];
     $roll = $_POST['roll'];
+    $photo = $_FILES['photo'];
 
-    if($fname != "" && $lname != "" && $age != "" && $class != "" && $roll != ""){
-         addStudentData($fname, $lname, $age, $class, $roll);
 
-        //echo $fname . $lname . "\n" . $age . "\n" . $class . "\n" . $roll;
+
+    
+    if($fname != "" && $lname != "" && $age != "" && $class != "" && $roll != "" && $photo != ""){
+        
+        addStudentData($fname, $lname, $age, $class, $roll, $photo);
+    
+        move_uploaded_file($photo['tmp_name'], "./uploads/" . $photo['name']);
+
         $info = "Data Send Successfuly";
+
     }else{
         $info = "Must field Not Empty!!!";
     }
@@ -75,7 +82,7 @@ if("seed" == $task){
             <?php if("add" == $task): ?>
             <div class="row">
                 <div class="column column-50 column-offset-20">
-                   <form action="index.php?repors" method="POST">
+                   <form class="student_add_form" action="index.php?repors" method="POST"  enctype="multipart/form-data">
                         <label for="fname">First Name</label>
                         <input type="text" id="fname" name="fname">
                         <label for="lname">Last Name</label>
@@ -86,6 +93,8 @@ if("seed" == $task){
                         <input type="text" id="class" name="class">
                         <label for="roll">Roll</label>
                         <input type="text" id="roll" name="roll">
+                        <label for="photo">Photo</label>
+                        <input type="file" id="photo" name="photo">
                         <button type="submit" name="submit">Save Data</button>
                    </form>
                 </div>

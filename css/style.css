@@ -5,3 +5,7 @@
 .student-admin p a{
     margin: 0 10px;
 }
+
+.student_add_form input[type = "file"]{
+    width: 100%;
+}

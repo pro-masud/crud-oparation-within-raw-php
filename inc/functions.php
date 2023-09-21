@@ -13,46 +13,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
 
  function seed(){
     $Data = [
-        [
-            "id"    => 1,
-            "fname" => "Masud",
-            "lname" => "Rana",
-            "age"   => 18,
-            "class" => 12,
-            "roll"  => 001,
-        ],
-        [
-            "id"    => 2,
-            "fname" => "Al Amin",
-            "lname" => "Islam",
-            "age"   => 25,
-            "class" => "BBA",
-            "roll"  => 002,
-        ],
-        [
-            "id"    => 3,
-            "fname" => "Fatima",
-            "lname" => "Khatun",
-            "age"   => 18,
-            "class" => 12,
-            "roll"  => 003,
-        ],
-        [
-            "id"    => 4,
-            "fname" => "Parvej",
-            "lname" => "Islam",
-            "age"   => 18,
-            "class" => 12,
-            "roll"  => 004,
-        ],
-        [
-            "id"    => 5,
-            "fname" => "Monuar",
-            "lname" => "Rahman",
-            "age"   => 18,
-            "class" => 12,
-            "roll"  => 006,
-        ]
+      
     ];
 
     $serializeData = serialize($Data);
@@ -75,6 +36,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Photo</th>
                     <th>Name</th>
                     <th>Age</th>
                     <th>Class</th>
@@ -86,6 +48,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
                 <?php foreach($students as $student): ?>
                     <tr>
                         <td><?php echo $student['id']; ?></td>
+                        <td><img style="width: 30px; height=30px;" src="../uploads/<?php echo $student['photo']; ?>"></td>
                         <td><?php echo $student['fname'] . $student['lname']; ?></td>
                         <td><?php echo $student['age']; ?></td>
                         <td><?php echo $student['class']; ?></td>
@@ -107,7 +70,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
  * 
  * */
 
- function addStudentData($fname, $lname, $age, $class, $roll){
+ function addStudentData($fname, $lname, $age, $class, $roll, $photo){
     $serializeData = file_get_contents(DB);
     $students = unserialize($serializeData);
     $newId = count($students);
@@ -118,6 +81,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
         "age"   => $age,
         "class" => $class,
         "roll"  => $roll,
+        "photo"  => $photo['name'],
     ];
 
     array_push($students, $newStudent);
