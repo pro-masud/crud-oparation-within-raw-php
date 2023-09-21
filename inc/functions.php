@@ -108,5 +108,20 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
  * */
 
  function addStudentData($fname, $lname, $age, $class, $roll){
-    
+    $serializeData = file_get_contents(DB);
+    $students = unserialize($serializeData);
+    $newId = count($students);
+    $newStudent = [
+        "id" => $newId,
+        "fname" => $fname,
+        "lname" => $lname,
+        "age"   => $age,
+        "class" => $class,
+        "roll"  => $roll,
+    ];
+
+    array_push($students, $newStudent);
+
+    $serializeData = serialize($students);
+    file_put_contents(DB, $serializeData, LOCK_EX);
  }

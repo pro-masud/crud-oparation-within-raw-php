@@ -75,7 +75,7 @@ if("seed" == $task){
             <?php if("add" == $task): ?>
             <div class="row">
                 <div class="column column-50 column-offset-20">
-                   <form action="" method="POST">
+                   <form action="index.php?repors" method="POST">
                         <label for="fname">First Name</label>
                         <input type="text" id="fname" name="fname">
                         <label for="lname">Last Name</label>
