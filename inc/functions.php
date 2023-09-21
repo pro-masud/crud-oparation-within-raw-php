@@ -90,10 +90,23 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
                         <td><?php echo $student['age']; ?></td>
                         <td><?php echo $student['class']; ?></td>
                         <td><?php echo $student['roll']; ?></td>
-                        <td><a style="color: green;" href="index.php?id=<?php echo $student['id']; ?>">Edite</a> | <a style="color: red;" href="index.php?id=<?php echo $student['id']; ?>">Delete</a></td>
+                        <td><a style="color: green;" href="index.php?task=edite&id=<?php echo $student['id']; ?>">Edite</a> | <a style="color: red;" href="index.php?task=delete&id=<?php echo $student['id']; ?>">Delete</a></td>
                     </tr>
                     <?php endforeach; ?>
             </tbody>
         </table>
     <?php 
+
+
+ }
+
+
+ /**
+ * 
+ * new student data send to database
+ * 
+ * */
+
+ function addStudentData($fname, $lname, $age, $class, $roll){
+    
  }
