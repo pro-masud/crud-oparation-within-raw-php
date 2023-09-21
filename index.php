@@ -1,3 +1,15 @@
+<?php 
+/**
+ * project all files required here
+ * */ 
+require "./inc/functions.php";
+$info = '';
+$task = $_GET['task'] ?? 'report';
+if("seed" == $task){
+    seed(DB);
+    $info = "seeding is complete Now";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +33,9 @@
                         <?php 
                             include_once"./nav/nav.php";
                         ?>
+                        <p>
+                            <?php echo $info; ?>
+                        </p>
                     </div>
                 </div>
             </div>
