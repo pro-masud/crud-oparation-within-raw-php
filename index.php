@@ -48,7 +48,7 @@ if("seed" == $task){
         if($result){
             header('location: index.php?task=report');
         }else{
-            header('location: index.php?task=report&error=1');
+            $error = 1;
         }
     }else{
         $info = "Must field Not Empty!!!";
@@ -96,7 +96,7 @@ if("seed" == $task){
             </div>
             <?php endif; ?>
 
-            
+
             <?php if("report" == $task): ?>
             <div class="row">
                 <div class="column column-70 column-offset-30">
