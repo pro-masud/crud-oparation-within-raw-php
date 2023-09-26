@@ -5,6 +5,7 @@
 require "./inc/functions.php";
 $info = '';
 $task = $_GET['task'] ?? 'report';
+$error = $_GET['error'] ?? '0';
 if("seed" == $task){
     seed();
     $info = "seeding is complete Now";
@@ -17,6 +18,13 @@ if("seed" == $task){
  * new student data upload to database 
  * 
  * */ 
+
+ $fname = "";
+ $lname = "";
+ $age = "";
+ $class = "";
+ $roll = "";
+ $photo = "";
 
  if(isset($_POST['submit'])){
     $fname = $_POST['fname'];
@@ -31,12 +39,17 @@ if("seed" == $task){
     
     if($fname != "" && $lname != "" && $age != "" && $class != "" && $roll != "" && $photo != ""){
         
-        addStudentData($fname, $lname, $age, $class, $roll, $photo);
+       $result =  addStudentData($fname, $lname, $age, $class, $roll, $photo);
     
         move_uploaded_file($photo['tmp_name'], "./uploads/" . $photo['name']);
 
-        $info = "Data Send Successfuly";
 
+        $info = "Data Send Successfuly";
+        if($result){
+            header('location: index.php?task=report');
+        }else{
+            header('location: index.php?task=report&error=1');
+        }
     }else{
         $info = "Must field Not Empty!!!";
     }
@@ -71,6 +84,19 @@ if("seed" == $task){
                     </div>
                 </div>
             </div>
+
+            
+            <?php if("1" == $error): ?>
+            <div class="row">
+                <div class="column column-70 column-offset-30">
+                   <blockquote>
+                        <p>Dublicate Roll Number</p>
+                   </blockquote>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            
             <?php if("report" == $task): ?>
             <div class="row">
                 <div class="column column-70 column-offset-30">
@@ -79,22 +105,23 @@ if("seed" == $task){
             </div>
             <?php endif; ?>
 
+
             <?php if("add" == $task): ?>
             <div class="row">
                 <div class="column column-50 column-offset-20">
-                   <form class="student_add_form" action="index.php?repors" method="POST"  enctype="multipart/form-data">
+                   <form class="student_add_form" action="index.php?task=add" method="POST"  enctype="multipart/form-data">
                         <label for="fname">First Name</label>
-                        <input type="text" id="fname" name="fname">
+                        <input type="text" id="fname" name="fname" value="<?php echo $fname; ?>">
                         <label for="lname">Last Name</label>
-                        <input type="text" id="lname" name="lname">
+                        <input type="text" id="lname" name="lname" value="<?php echo $lname; ?>">
                         <label for="age">Age</label>
-                        <input type="text" id="age" name="age">
+                        <input type="text" id="age" name="age" value="<?php echo $age; ?>">
                         <label for="class">Class</label>
-                        <input type="text" id="class" name="class">
+                        <input type="text" id="class" name="class" value="<?php echo $class; ?>">
                         <label for="roll">Roll</label>
-                        <input type="text" id="roll" name="roll">
+                        <input type="text" id="roll" name="roll" value="<?php echo $roll; ?>">
                         <label for="photo">Photo</label>
-                        <input type="file" id="photo" name="photo">
+                        <input type="file" id="photo" name="photo" value="<?php echo $photo; ?>">
                         <button type="submit" name="submit">Save Data</button>
                    </form>
                 </div>

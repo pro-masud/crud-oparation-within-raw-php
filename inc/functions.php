@@ -49,7 +49,7 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
                     <tr>
                         <td><?php echo $student['id']; ?></td>
                         <td><img style="width: 30px; height=30px;" src="../uploads/<?php echo $student['photo']; ?>"></td>
-                        <td><?php echo $student['fname'] . $student['lname']; ?></td>
+                        <td><?php echo $student['fname']. " " . $student['lname']; ?></td>
                         <td><?php echo $student['age']; ?></td>
                         <td><?php echo $student['class']; ?></td>
                         <td><?php echo $student['roll']; ?></td>
@@ -71,21 +71,33 @@ define("DB", "C:/xampp/htdocs/crud/DB/database.txt");
  * */
 
  function addStudentData($fname, $lname, $age, $class, $roll, $photo){
+    $founts = false;
     $serializeData = file_get_contents(DB);
     $students = unserialize($serializeData);
-    $newId = count($students);
-    $newStudent = [
-        "id" => $newId,
-        "fname" => $fname,
-        "lname" => $lname,
-        "age"   => $age,
-        "class" => $class,
-        "roll"  => $roll,
-        "photo"  => $photo['name'],
-    ];
+    foreach($students as $_student){
+        if($_student['roll'] == $roll){
+            $founts = true;
+            break;
+        }
+    }
+    if(!$founts){
+        $newId = count($students);
+        $newStudent = [
+            "id" => $newId,
+            "fname" => $fname,
+            "lname" => $lname,
+            "age"   => $age,
+            "class" => $class,
+            "roll"  => $roll,
+            "photo"  => $photo['name'],
+        ];
 
-    array_push($students, $newStudent);
+        array_push($students, $newStudent);
 
-    $serializeData = serialize($students);
-    file_put_contents(DB, $serializeData, LOCK_EX);
+        $serializeData = serialize($students);
+        file_put_contents(DB, $serializeData, LOCK_EX);
+        return true;
+    }
+
+    return false;
  }
