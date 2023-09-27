@@ -10,6 +10,15 @@
     }
 
 
+    // delete students
+    if("delete" == $task){
+        $id = $_GET['id'];
+        if($id > 0){
+            deleteStudent($id);
+        }
+    } 
+
+
     $fname = "";
     $lname = "";
     $roll = "";
@@ -76,14 +85,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <?php if("report" == $task):?>
-                    <div class="column column-70 column-offset-30">
-                        <?php print_r(getStudents()); ?>
-                    </div>
-                <?php endif; ?>
-            </div>
 
+                     
             <?php if("1" == $error): ?>
                 <div class="row">
                     <blockquote>
@@ -91,6 +94,15 @@
                     </blockquote>
                 </div>
             <?php endif; ?>
+           
+            <?php if("report" == $task):?>
+                <div class="row">
+                    <div class="column column-70 column-offset-30">
+                        <?php print_r(getStudents()); ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
 
             <?php if("add" == $task): ?>
                 <div class="row">
@@ -120,7 +132,7 @@
                 ?>
                 <div class="row">
                 <div class="column column-50 column-offset-20">
-                   <form class="student_add_form" action="index.php?task=report" method="POST">
+                   <form class="student_add_form" method="POST">
                         <input type="hidden" value="<?php echo $id ?>" name="id">
                         <label for="fname">First Name</label>
                         <input type="text" id="fname" name="fname" value="<?php echo $student['fname']; ?>">

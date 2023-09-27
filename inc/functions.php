@@ -105,7 +105,7 @@ function addNewStudents($fname, $lname, $roll){
     }
 
     if(!$founts){
-        $newId = count($students) + 1;
+        $newId = studentId($students);
         $newStudent = [
             "id"    => $newId,
             "fname" => $fname,
@@ -176,4 +176,31 @@ function addNewStudents($fname, $lname, $roll){
     }
 
     return false;    
+ }
+
+
+/**
+ * student delete to database
+ * 
+ * */  
+
+ function  deleteStudent($id){
+    $unserialize = file_get_contents(DB);
+    $students = unserialize($unserialize);
+
+    unset($students[$id - 1]);
+
+    $serialize = serialize($students);
+    
+    file_put_contents(DB, $serialize, LOCK_EX);
+
+
+
+ }
+
+
+ function studentId($students){
+    $maxId = max(array_column($students, "id"));
+
+    return $maxId + 1;
  }
