@@ -15,6 +15,7 @@
         $id = $_GET['id'];
         if($id > 0){
             deleteStudent($id);
+            header('location: index.php?task=report');
         }
     } 
 

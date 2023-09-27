@@ -188,7 +188,13 @@ function addNewStudents($fname, $lname, $roll){
     $unserialize = file_get_contents(DB);
     $students = unserialize($unserialize);
 
-    unset($students[$id - 1]);
+    foreach($students as $keys => $student){
+        if($student['id'] == $id){
+            unset($students[$keys]);
+        }
+    }
+
+    
 
     $serialize = serialize($students);
     
